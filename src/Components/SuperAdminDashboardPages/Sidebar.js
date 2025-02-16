@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
-function Sidebar() {
+function Sidebar({ setActiveComponent }) {
   return (
     <>
       <nav className="sidebar" data-trigger="scrollbar">
@@ -16,25 +16,29 @@ function Sidebar() {
             <li className="nav-category">Main</li>
 
             <li>
-              <Link to="/superadmin">
-                <i className="icofont-chart-histogram"></i>
-                <span className="link-title">Work Analytics</span>
-              </Link>
+              <i className="icofont-chart-histogram"></i>
+              <span className="link-title">Work Analytics</span>
             </li>
             <li className="nav-category">apps</li>
 
             <li>
-              <Link to="/chat">
-                <i className="icofont-wechat"></i>
-                <span className="link-title">Chat</span>
-              </Link>
+              <i className="icofont-wechat"></i>
+              <span
+                className="link-title"
+                onClick={() => setActiveComponent("chat")}
+              >
+                Chat
+              </span>
             </li>
 
             <li>
-              <Link to="/calendar">
-                <i className="icofont-calendar"></i>
-                <span className="link-title">Calendar</span>
-              </Link>
+              <i className="icofont-calendar"></i>
+              <span
+                className="link-title"
+                onClick={() => setActiveComponent("calendar")}
+              >
+                Calendar
+              </span>
             </li>
           </ul>
         </div>
