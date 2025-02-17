@@ -3,95 +3,75 @@ import axios from "axios";
 
 const Invite = () => {
   const [workspaces, setWorkspaces] = useState([]);
-
-  useEffect(() => {
-    async function fetchWorkspaces() {
-      try {
-        const response = await axios.get("/api/workspaces"); // Adjust the URL to match your backend endpoint
-        setWorkspaces(response.data.workspaces); // Assuming your response contains a 'workspaces' property with an array of workspace names
-      } catch (error) {
-        console.error("Error fetching workspaces:", error);
-      }
-    }
-
-    fetchWorkspaces();
-  }, []);
-
+  const [isModalOpen, setModalOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("Select Role");
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-  function toggleDropdown() {
-    setDropdownOpen(!isDropdownOpen);
-  }
+  // useEffect(() => {
+  //   async function fetchWorkspaces() {
+  //     try {
+  //       const response = await axios.get("/api/workspaces");
+  //       setWorkspaces(response.data.workspaces);
+  //     } catch (error) {
+  //       console.error("Error fetching workspaces:", error);
+  //     }
+  //   }
+  //   fetchWorkspaces();
+  // }, []);
 
-  function selectRole(role) {
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+  const selectRole = (role) => {
     setSelectedRole(role);
     setDropdownOpen(false);
-  }
+  };
 
-  const [selectedRole1, setSelectedRole1] = useState("Select Role");
-  const [isDropdownOpen1, setDropdownOpen1] = useState(false);
+  const modalStyle = {
+    display: isModalOpen ? "block" : "none",
+    position: "fixed",
+    zIndex: 1050,
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    overflow: "auto",
+  };
 
-  function toggleDropdown1() {
-    setDropdownOpen1(!isDropdownOpen1);
-  }
-
-  function selectRole1(role) {
-    setSelectedRole1(role);
-    setDropdownOpen1(false);
-  }
   return (
     <>
       <div className="main-header-btn ml-md-1">
-        <button
-          type="button"
-          className="btn"
-          data-toggle="modal"
-          data-target="#exampleModal"
-          data-whatever="@mdo"
-        >
+        <button type="button" className="btn" onClick={openModal}>
           Invite
         </button>
       </div>
 
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div className="modal" style={modalStyle} role="dialog">
         <div className="modal-dialog" role="document">
-          <div className="modal-content">
+          <div
+            className="modal-content"
+            style={{ zIndex: 1100, position: "relative" }}
+          >
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Invite People
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
+              <h5 className="modal-title">Invite People</h5>
+              <button type="button" className="close" onClick={closeModal}>
+                <span>&times;</span>
               </button>
             </div>
 
             <div className="modal-body">
               <p style={{ fontSize: "small" }}>
-                New members will gain access to the public spaces,docs and
-                dashboard
+                New members will gain access to public spaces, docs, and the
+                dashboard.
               </p>
               <form>
                 <div className="form-group mb-4">
-                  <label for="addonEmail3" className="mb-2 font-14 bold">
-                    Invite By Email
-                  </label>
+                  <label className="mb-2 font-14 bold">Invite By Email</label>
                   <div className="theme-input-group style--two">
                     <input
                       type="text"
-                      id="addonEmail3"
                       className="form-control"
                       placeholder="Type your email here"
                     />
@@ -118,40 +98,49 @@ const Invite = () => {
                         >
                           SuperAdmin
                         </a>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={() => selectRole("Admin")}
+                        >
+                          Admin
+                        </a>
+                        <a
+                          className="dropdown-item"
+                          href="#"
+                          onClick={() => selectRole("User")}
+                        >
+                          User
+                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="form-group mb-4">
-                  <div className="theme-input-group style--two">
-                    <div class="add_task-location mb-40">
-                      <label for="task_location" class="label-text">
-                        Select Workspace
-                      </label>
-                      <select class="theme-input-style" id="exampleSelect1">
-                        <option value="null">Select Workspace</option>
-                        {workspaces.map((workspace) => (
-                          <option key={workspace.value} value={workspace.value}>
-                            {workspace.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                  <label className="label-text">Select Workspace</label>
+                  <select className="theme-input-style">
+                    <option value="null">Select Workspace</option>
+                    {workspaces.map((workspace, index) => (
+                      <option key={index} value={workspace.value}>
+                        {workspace.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </form>
             </div>
+
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-dismiss="modal"
+                onClick={closeModal}
               >
                 Close
               </button>
               <button type="button" className="btn btn-primary">
-                Send invite
+                Send Invite
               </button>
             </div>
           </div>

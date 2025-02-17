@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "../assets/fonts/themify-icons/themify-icons.css";
 
 const ServicesSidebar = React.memo(() => {
   const [emailOpen, setEmailOpen] = useState(false);
