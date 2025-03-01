@@ -6,7 +6,7 @@ const DisplayBoardList = () => {
       <div className="d-flex justify-content-between align-items-center mb-20">
         <div className="">
           <div className="">
-            <Link to="">
+            <Link to="/services">
               <h4>Barcadly Services</h4>
             </Link>
           </div>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-const AnalysisSidebar = React.memo(() => {
+const OperationsSidebar = React.memo(() => {
   const sidebarRef = useRef(null);
 
   useEffect(() => {
@@ -251,4 +251,4 @@ const AnalysisSidebar = React.memo(() => {
     </>
   );
 });
-export default AnalysisSidebar;
+export default OperationsSidebar;

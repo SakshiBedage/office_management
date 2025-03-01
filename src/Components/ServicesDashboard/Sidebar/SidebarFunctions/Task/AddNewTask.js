@@ -69,17 +69,17 @@ function AddNewTask() {
   useEffect(() => {
     // Load external scripts when the component mounts
     const script1 = document.createElement("script");
-    script1.src = "/assets/plugins/datepicker/datepicker.min.js";
+    script1.src = "assets/plugins/datepicker/datepicker.min.js";
     script1.async = true;
     document.head.appendChild(script1);
 
     const script2 = document.createElement("script");
-    script2.src = "/assets/plugins/datepicker/i18n/datepicker.en.js";
+    script2.src = "assets/plugins/datepicker/i18n/datepicker.en.js";
     script2.async = true;
     document.head.appendChild(script2);
 
     const script3 = document.createElement("script");
-    script3.src = "/assets/plugins/datepicker/custom-form-datepicker.js";
+    script3.src = "assets/plugins/datepicker/custom-form-datepicker.js";
     script3.async = true;
     document.head.appendChild(script3);
 

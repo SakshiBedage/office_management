@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import "../assets/css/style.css";
 
 import "../assets/fonts/themify-icons/themify-icons.css";
@@ -14,6 +15,9 @@ import SuperAdminCalendar from "./SuperAdminCalendar.js";
 
 function SuperAdminDashboard() {
   const [activeComponent, setActiveComponent] = useState("dashboard");
+  const location = useLocation();
+
+  const user = location.state?.user;
 
   return (
     <>

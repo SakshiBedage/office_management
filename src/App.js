@@ -4,6 +4,8 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import SuperAdminDashboard from "./Components/SuperAdminDashboard";
 import ServicesDashboard from "./Components/ServicesDashboard/ServicesDashboard";
+import MiniWorkspaceDashboard from "./Components/MiniWorkspace/MiniWorkspaceDashboard";
+import OperationsDashboard from "./Components/Operations/OperationsDashboard";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/superadmin/*" element={<SuperAdminDashboard />} />
       <Route path="/services/*" element={<ServicesDashboard />} />
+      <Route path="/mini/*" element={<MiniWorkspaceDashboard />} />
+      <Route path="/operations/*" element={<OperationsDashboard />} />
     </Routes>
   );
 }

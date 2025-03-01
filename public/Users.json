@@ -1,0 +1,48 @@
+[
+  {
+    "email": "kkkkkk@gmail.com",
+    "password": "SuperAdmin123!",
+    "role": "superadmin",
+    "managementBoard": ["operations", "hr"],
+    "workspace": ["team 1", "team 2"]
+  },
+  {
+    "email": "admin1@gmail.com",
+    "password": "AdminPass1!",
+    "role": "admin",
+    "managementBoard": ["operations"],
+    "workspace": ["team 1"]
+  },
+  {
+    "email": "admin2@gmail.com",
+    "password": "AdminPass2!",
+    "role": "admin",
+    "managementBoard": ["hr"],
+    "workspace": ["team 1", "team 2"]
+  },
+  {
+    "email": "admin3@gmail.com",
+    "password": "AdminPass3!",
+    "role": "admin",
+    "managementBoard": ["operations", "hr"],
+    "workspace": ["team 2"]
+  },
+  {
+    "email": "member1@gmail.com",
+    "password": "MemberPass1!",
+    "role": "member",
+    "workspace": ["team 1"]
+  },
+  {
+    "email": "member2@gmail.com",
+    "password": "MemberPass2!",
+    "role": "member",
+    "workspace": ["team 2"]
+  },
+  {
+    "email": "member3@gmail.com",
+    "password": "MemberPass3!",
+    "role": "member",
+    "workspace": ["team 1", "team 2"]
+  }
+]

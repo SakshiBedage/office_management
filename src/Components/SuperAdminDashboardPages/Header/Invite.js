@@ -98,20 +98,6 @@ const Invite = () => {
                         >
                           SuperAdmin
                         </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => selectRole("Admin")}
-                        >
-                          Admin
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          href="#"
-                          onClick={() => selectRole("User")}
-                        >
-                          User
-                        </a>
                       </div>
                     </div>
                   </div>

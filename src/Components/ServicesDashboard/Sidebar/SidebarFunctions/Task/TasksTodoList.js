@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../assets/HR/vendor/font-awesome/css/font-awesome.min.css";
-import "../assets/HR/vendor/sweetalert/sweetalert.css";
-import "../assets/HR/vendor/jquery-datatable/dataTables.bootstrap4.min.css";
-import "../assets/HR/bundles/datatablescripts.bundle";
-import "../assets/HR/vendor/sweetalert/sweetalert.min.js";
-import "../assets/HR/js/pages/tables/jquery-datatable.js";
+import "../../../../../assets/HR/vendor/font-awesome/css/font-awesome.min.css";
+import "../../../../../assets/HR/vendor/sweetalert/sweetalert.css";
+import "../../../../../assets/HR/vendor/jquery-datatable/dataTables.bootstrap4.min.css";
+
+import "../../../../../assets/HR/bundles/datatablescripts.bundle.js";
+import "../../../../../assets/HR/vendor/sweetalert/sweetalert.min.js";
+import "../../../../../assets/HR/js/pages/tables/jquery-datatable.js";
 import Swal from "sweetalert2";
 import $ from "jquery";
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import Filters from "./Inbox/Filters";
 
 function ReadEmail() {
   const [showCcForm, setShowCcForm] = useState(false);
@@ -22,132 +23,45 @@ function ReadEmail() {
   };
 
   useEffect(() => {
-    // Load Summernote scripts dynamically
-    const summernoteScript1 = document.createElement("script");
-    summernoteScript1.src =
-      "../../../assets/plugins/summernote/summernote-bs4.min.js";
-    summernoteScript1.async = true;
-    document.body.appendChild(summernoteScript1);
+    // Load jQuery first
+    const jqueryScript = document.createElement("script");
+    jqueryScript.src = "https://code.jquery.com/jquery-3.7.1.min.js";
+    jqueryScript.async = true;
+    document.body.appendChild(jqueryScript);
 
-    const summernoteScript2 = document.createElement("script");
-    summernoteScript2.src =
-      "../../../assets/plugins/summernote/summernote-bs4-init.js";
-    summernoteScript2.async = true;
-    document.body.appendChild(summernoteScript2);
+    jqueryScript.onload = () => {
+      // Load Summernote scripts only after jQuery is loaded
+      const summernoteScript1 = document.createElement("script");
+      summernoteScript1.src =
+        "/assets/plugins/summernote/summernote-bs4.min.js";
+      summernoteScript1.async = true;
+      document.body.appendChild(summernoteScript1);
 
-    // Cleanup the scripts when the component is unmounted
-    return () => {
-      document.body.removeChild(summernoteScript1);
-      document.body.removeChild(summernoteScript2);
+      summernoteScript1.onload = () => {
+        const summernoteScript2 = document.createElement("script");
+        summernoteScript2.src =
+          "/assets/plugins/summernote/summernote-bs4-init.js";
+        summernoteScript2.async = true;
+        document.body.appendChild(summernoteScript2);
+
+        // Initialize Summernote when both scripts are loaded
+        summernoteScript2.onload = () => {
+          window.$("#summernote").summernote({
+            placeholder: "Write your email here...",
+            height: 300,
+          });
+        };
+      };
     };
-  }, []); // Empty dependency array means this effect runs once after the initial render
+
+    return () => {
+      document.body.removeChild(jqueryScript);
+    };
+  }, []);
 
   return (
     <div class="main-content d-flex flex-column flex-md-row">
-      <div class="mb-4 mb-md-0">
-        <nav class="tasks_aside">
-          <div class="aside-header pr-0">
-            <div class="aside-header-btn d-flex justify-content-end position-relative">
-              <h4 class="aside-btn-text c1 d-xl-flex align-items-center">
-                Compose New
-              </h4>
-              <a href="compose.html" class="btn-circle style--two">
-                <img
-                  src="../../../assets/img/svg/plus_white.svg"
-                  alt=""
-                  class="svg"
-                />
-              </a>
-            </div>
-          </div>
-
-          <div class="aside-body">
-            <ul class="nav flex-column">
-              <li class="active">
-                <a href="#">
-                  Inbox{" "}
-                  <span class="c3 bold font-14 ml-1 float-right">(5)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">Sent</a>
-              </li>
-              <li>
-                <a href="#">
-                  Draft{" "}
-                  <span class="c3 bold font-14 ml-1 float-right">(3)</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">Starred</a>
-              </li>
-              <li>
-                <a href="#">Snoozed</a>
-              </li>
-
-              <li
-                class="nav-category less bold font-14 mt-4"
-                data-toggle="collapse"
-                data-target="less-dropdown"
-              >
-                Less
-              </li>
-            </ul>
-            <ul id="less-dropdown" class="list-unstyled">
-              <li class="lavel">
-                <a href="#">Important</a>
-              </li>
-              <li class="lavel">
-                <a href="#">Scheduled</a>
-              </li>
-              <li class="lavel">
-                <a href="#">Trash</a>
-              </li>
-              <li class="lavel">
-                <a href="#">Spam</a>
-              </li>
-
-              <li class="nav-category bold font-14 mt-4">Lavels</li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color products"></span>
-                  Products
-                </a>
-              </li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color works"></span>
-                  Works
-                </a>
-              </li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color family"></span>
-                  Family
-                </a>
-              </li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color friends"></span>
-                  Friends
-                </a>
-              </li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color design"></span>
-                  Design{" "}
-                </a>
-              </li>
-              <li class="lavel">
-                <a href="#">
-                  <span class="tag_color others"></span>
-                  Others{" "}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
+      <Filters />
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">

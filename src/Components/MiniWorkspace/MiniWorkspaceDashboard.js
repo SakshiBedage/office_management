@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import ServicesHeader from "./Header/ServicesHeader";
-import ServicesMainContent from "./ServicesMainContent/ServicesMainContent";
-import ServicesSidebar from "./Sidebar/ServicesSidebar";
-import InboxEmail from "./Sidebar/SidebarFunctions/ServiceEmail/Inbox/InboxEmail";
-import ReadEmail from "./Sidebar/SidebarFunctions/ServiceEmail/ReadEmail";
-import ComposeEmail from "./Sidebar/SidebarFunctions/ServiceEmail/ComposeEmail";
+import ServicesSidebar from "../ServicesDashboard/Sidebar/ServicesSidebar";
+import MiniWorkspaceHeader from "./MiniWorkspaceHeader";
+import MiniWorkspace from "./MiniWorkspace";
+import InboxEmail from "../ServicesDashboard/Sidebar/SidebarFunctions/ServiceEmail/Inbox/InboxEmail";
+import ReadEmail from "../ServicesDashboard/Sidebar/SidebarFunctions/ServiceEmail/ReadEmail";
+import ComposeEmail from "../ServicesDashboard/Sidebar/SidebarFunctions/ServiceEmail/ComposeEmail";
 import Chat from "../Chat";
-import TasksTodoList from "./Sidebar/SidebarFunctions/Task/TasksTodoList";
-import AddNewTask from "./Sidebar/SidebarFunctions/Task/AddNewTask";
+import TasksTodoList from "../ServicesDashboard/Sidebar/SidebarFunctions/Task/TasksTodoList";
+import AddNewTask from "../ServicesDashboard/Sidebar/SidebarFunctions/Task/AddNewTask";
 import SuperAdminCalendar from "../SuperAdminCalendar";
 
-const ServicesDashboard = () => {
+const MiniWorkspaceDashboard = () => {
   const [activeComponent, setActiveComponent] = useState("dashboard");
   const location = useLocation();
   const user = location.state?.user;
@@ -21,15 +21,11 @@ const ServicesDashboard = () => {
     <>
       <div className="offcanvas-overlay"></div>
       <div className="wrapper">
-        <ServicesHeader />
-
+        <MiniWorkspaceHeader />
         <div className="main-wrapper">
           <ServicesSidebar setActiveComponent={setActiveComponent} />
-
           <div className="content-area">
-            {activeComponent === "dashboard" && (
-              <ServicesMainContent user={user} />
-            )}
+            {activeComponent === "dashboard" && <MiniWorkspace user={user} />}
             {activeComponent === "inbox" && <InboxEmail />}
             {activeComponent === "read" && <ReadEmail />}
             {activeComponent === "compose" && <ComposeEmail />}
@@ -43,4 +39,5 @@ const ServicesDashboard = () => {
     </>
   );
 };
-export default ServicesDashboard;
+
+export default MiniWorkspaceDashboard;

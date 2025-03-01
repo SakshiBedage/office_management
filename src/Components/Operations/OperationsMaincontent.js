@@ -30,7 +30,7 @@ import {
   column8_options,
   column9_options,
   column10_options,
-} from "../assets/plugins/apex/custom-apexcharts";
+} from "../../assets/plugins/apex/custom-apexcharts";
 
 function OperationsMainContent() {
   useEffect(() => {

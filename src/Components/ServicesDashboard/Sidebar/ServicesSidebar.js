@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const ServicesSidebar = React.memo(() => {
+function ServicesSidebar({ setActiveComponent }) {
   const [emailOpen, setEmailOpen] = useState(false);
   const [toDoListOpen, setToDoListOpen] = useState(false);
 
@@ -64,24 +64,42 @@ const ServicesSidebar = React.memo(() => {
                 <ul style={{ listStyle: "none", paddingLeft: "0" }}>
                   <li style={{ listStyle: "none" }}>
                     <i className="ti-minus"></i>
-                    <Link to="/services/inboxemail">Inbox</Link>
+                    <span
+                      className="link-title"
+                      onClick={() => setActiveComponent("inbox")}
+                    >
+                      Inbox
+                    </span>
                   </li>
                   <li style={{ listStyle: "none" }}>
                     <i className="ti-minus"></i>
-                    <Link to="/services/reademail">Read</Link>
+                    <span
+                      className="link-title"
+                      onClick={() => setActiveComponent("read")}
+                    >
+                      Read
+                    </span>
                   </li>
                   <li style={{ listStyle: "none" }}>
                     <i className="ti-minus"></i>
-                    <Link to="/services/composeemail">Compose</Link>
+                    <span
+                      className="link-title"
+                      onClick={() => setActiveComponent("compose")}
+                    >
+                      Compose
+                    </span>
                   </li>
                 </ul>
               )}
             </li>
             <li>
-              <Link to="/services/chat">
-                <i className="icofont-wechat"></i>
-                <span className="link-title">Chat</span>
-              </Link>
+              <i className="icofont-wechat"></i>
+              <span
+                className="link-title"
+                onClick={() => setActiveComponent("chat")}
+              >
+                Chat
+              </span>
             </li>
             <li>
               <a href="#" onClick={handleToDoListToggle}>
@@ -102,26 +120,39 @@ const ServicesSidebar = React.memo(() => {
                 <ul style={{ listStyle: "none", paddingLeft: "0" }}>
                   <li style={{ listStyle: "none" }}>
                     <i className="ti-minus"></i>
-                    <Link to="/services/taskstodolist">All tasks</Link>
+                    <span
+                      className="link-title"
+                      onClick={() => setActiveComponent("tasks")}
+                    >
+                      All tasks
+                    </span>
                   </li>
                   <li style={{ listStyle: "none" }}>
                     <i className="ti-minus"></i>
-                    <Link to="/services/addnewtask">Add task</Link>
+                    <span
+                      className="link-title"
+                      onClick={() => setActiveComponent("addtask")}
+                    >
+                      Add task
+                    </span>
                   </li>
                 </ul>
               )}
             </li>
             <li>
-              <Link to="/services/calendar">
-                <i className="icofont-calendar"></i>
-                <span className="link-title">Calendar</span>
-              </Link>
+              <i className="icofont-calendar"></i>
+              <span
+                className="link-title"
+                onClick={() => setActiveComponent("calendar")}
+              >
+                Calendar
+              </span>
             </li>
           </ul>
         </div>
       </nav>
     </>
   );
-});
+}
 
 export default ServicesSidebar;

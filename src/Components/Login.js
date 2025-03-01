@@ -1,28 +1,15 @@
-import React, { useContext, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import AuthContext from "../context/AuthContext";
-import axiosPublic from "../serviceUtil/axiosPublic";
-import axiosInstance from "../serviceUtil/AxiosInterceptor";
-
-//import { response } from "express";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  // const { userDetails, setUserDetails } = useContext(AuthContext);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formErrors, setFormErrors] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-  const [formErrors, setFormErrors] = useState({ email: "", password: "" }); // State variable to hold the error message
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target; // Destructure name and value from the event target
-    setFormData({
-      ...formData,
-      [name]: value, // Use the input's name as the key
-    });
-    setFormErrors({ ...formErrors, [name]: "" }); // Clear error when user types
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    setFormErrors({ ...formErrors, [name]: "" });
   };
 
   const handleLogin = async (e) => {
@@ -50,33 +37,28 @@ function Login() {
       return;
     }
 
-    // axios.post("http://localhost:8000/api/login", data).then((res) => {
-    //   console.log("Response recieved ", res);
-
-    //   if (res.data.status === 200) {
-    // setUserDetails({
-    //   isAuthenticated: true,
-    //   token: res.data.token,
-    //   workspace: res.data.workspace,
-    // });
-    // localStorage.setItem("userSession", JSON.stringify(res.data.token));
-    // sessionStorage.setItem("token", res.data.token);
-    // sessionStorage.setItem("email", res.data.email);
-    // sessionStorage.setItem("userId", res.data.userId);
-    // navigate("/superadmin");
-    // } else {
-    //   // setUserDetails({ isAuthenticated: false, token: null });
-    //   setError("Eiher Email or password is invalid");
-    // }
-    // });
-
     try {
-      // const response = await axios.post("http://localhost:8000/api/login", formData);
-      // console.log("Login successful:", response.data);
-      navigate("/superadmin");
+      const response = await fetch("/Users.json");
+      if (!response.ok) throw new Error("Failed to load user data.");
+      const users = await response.json();
+
+      const user = users.find(
+        (user) =>
+          user.email === formData.email && user.password === formData.password
+      );
+
+      if (user) {
+        if (user.role === "superadmin")
+          navigate("/superadmin", { state: { user } });
+        else if (user.role === "admin")
+          navigate("/services", { state: { user } });
+        else if (user.role === "member") navigate("/mini", { state: { user } });
+      } else {
+        setFormErrors({ ...formErrors, email: "Invalid email or password." });
+      }
     } catch (error) {
-      console.error("Login failed:", error.response?.data || error.message);
-      setFormErrors({ ...formErrors, email: "Invalid email or password." });
+      console.error("Error fetching user data:", error);
+      setFormErrors({ email: "Error connecting to the server." });
     }
   };
 
@@ -90,9 +72,9 @@ function Login() {
                 Welcome To
               </h4>
               <img
-                src="../../../assets/img/barcadly main1.png"
+                src="/assets/img/barcadly main1.png"
                 className="rounded mx-auto d-block"
-                alt="..."
+                alt="Barcadly Logo"
                 style={{ paddingBottom: "35px", marginTop: "15px" }}
               />
 
@@ -114,6 +96,7 @@ function Login() {
                     <div className="error">{formErrors.email}</div>
                   )}
                 </div>
+
                 <div className="form-group mb-20">
                   <label htmlFor="password" className="mb-2 font-14 bold">
                     Password
@@ -131,8 +114,7 @@ function Login() {
                     <div className="error">{formErrors.password}</div>
                   )}
                 </div>
-                {/* {!userDetails.isAuthenticated && <div>invalid user</div>}{" "} */}
-                {/* Display server-side error */}
+
                 <div className="d-flex align-items-center">
                   <button type="submit" className="btn long mr-20">
                     Log In
@@ -141,7 +123,7 @@ function Login() {
                     <Link to="/register" className="bold">
                       Sign Up
                     </Link>
-                    ,If you have no account.
+                    , If you have no account.
                   </span>
                 </div>
               </form>
