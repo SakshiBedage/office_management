@@ -4,7 +4,7 @@ import MainContentHeader from "./MainContentHeader";
 import CreateNewBoard from "./CreateNewBoard";
 import DisplayBoardList from "./DisplayBoardList";
 
-function SuperAdminMainContent() {
+function SuperAdminMainContent({ user }) {
   const [workspaces, setWorkspaces] = useState([]);
 
   return (
@@ -15,7 +15,7 @@ function SuperAdminMainContent() {
             <MainContentHeader />
 
             <div className="col-6">
-              <DisplayBoardList />
+              <DisplayBoardList user={user} />
             </div>
 
             <div className="col-xl-6 col-lg-4 col-sm-6">

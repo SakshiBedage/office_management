@@ -29,7 +29,9 @@ function SuperAdminDashboard() {
           <Sidebar setActiveComponent={setActiveComponent} />
 
           <div className="content-area">
-            {activeComponent === "dashboard" && <SuperAdminMainContent />}
+            {activeComponent === "dashboard" && (
+              <SuperAdminMainContent user={user} />
+            )}
             {activeComponent === "chat" && <Chat />}
             {activeComponent === "calendar" && <SuperAdminCalendar />}
           </div>

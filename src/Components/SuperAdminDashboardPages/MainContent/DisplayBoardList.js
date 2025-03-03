@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-const DisplayBoardList = () => {
+const DisplayBoardList = ({ user }) => {
   return (
     <div className="project-box one mb-30">
       <div className="d-flex justify-content-between align-items-center mb-20">
         <div className="">
           <div className="">
-            <Link to="/services">
+            <Link to="/services" state={{ user }}>
               <h4>Barcadly Services</h4>
             </Link>
           </div>

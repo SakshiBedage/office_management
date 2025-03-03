@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-function Register({ onSuperAdminClick, onLoginClick, setLoggedIn }) {
+function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -61,7 +62,6 @@ function Register({ onSuperAdminClick, onLoginClick, setLoggedIn }) {
       isValid = false;
       newFormErrors.phoneNumber = "Phone number must be 10 digits.";
     } else {
-      setLoggedIn(true);
       newFormErrors.phoneNumber = "";
     }
 
@@ -101,12 +101,19 @@ function Register({ onSuperAdminClick, onLoginClick, setLoggedIn }) {
       formData.phoneNumber
     );
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/register",
-        formData
-      );
+      // const response = await axios.post(
+      //   "http://localhost:8000/api/register",
+      //   formData
+      // );
+      // console.log("Registration successful:", response.data);
 
-      console.log("Registration successful:", response.data);
+      const user = {
+        ...formData,
+        managementBoard: ["operations", "hr"],
+        workspace: ["team 1", "team 2"],
+      };
+
+      navigate("/superadmin", { state: { user } });
     } catch (error) {
       // Handle registration error, e.g., display error message to the user
       console.error("Registration failed:", error.response.data);
@@ -114,10 +121,6 @@ function Register({ onSuperAdminClick, onLoginClick, setLoggedIn }) {
       const errorMessage = error.response.data.error;
       setFormErrors({ ...formErrors, email: errorMessage });
     }
-  };
-
-  const handleSuperAdminClick = () => {
-    onSuperAdminClick();
   };
 
   return (
@@ -280,7 +283,7 @@ function Register({ onSuperAdminClick, onLoginClick, setLoggedIn }) {
                     Register
                   </button>
                   <span class="font-12 d-block">
-                    <a href="/" onClick={onLoginClick} className="bold">
+                    <a href="/" className="bold">
                       Log In
                     </a>
                     ,If you already have an account.
